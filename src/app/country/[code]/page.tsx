@@ -1,4 +1,4 @@
-import { getCountries } from "@yusifaliyevpro/countries";
+import { getCountryByCode, getCountriesByCodes } from "@yusifaliyevpro/countries";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -12,7 +12,11 @@ type CountryPageProps = {
 
 export default async function CountryDetail({ params }: CountryPageProps) {
   try {
-    const countries = await getCountries({
+    const { code } = await params;
+    
+    // Fetch the main country with correct API syntax
+    const country = await getCountryByCode({
+      code,
       fields: [
         "name",
         "population",
@@ -27,15 +31,19 @@ export default async function CountryDetail({ params }: CountryPageProps) {
       ],
     });
 
-    const country = countries?.find(async (c) => c.cca3 === (await params).code);
     if (!country) {
       notFound();
     }
 
-    const borderCountries =
-      country.borders && countries
-        ? countries.filter((c) => country.borders?.includes(c.cca3))
-        : [];
+    // Fetch border countries if they exist
+    let borderCountries: { name: { common: string }; cca3: string }[] = [];
+    if (country.borders && country.borders.length > 0) {
+      const result = await getCountriesByCodes({
+        codes: country.borders,
+        fields: ["name", "cca3"],
+      });
+      borderCountries = result || [];
+    }
 
     return (
       <div
@@ -76,7 +84,7 @@ export default async function CountryDetail({ params }: CountryPageProps) {
                   {country.population.toLocaleString()}
                 </p>
                 <p>
-                  <span className="font-bold">Región:</span> {country.region}
+                  <span className="font-bold">Continente:</span> {country.region}
                 </p>
                 <p>
                   <span className="font-bold">Subregión:</span>{" "}
