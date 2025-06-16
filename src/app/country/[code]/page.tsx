@@ -6,13 +6,11 @@ import { Nunito } from "next/font/google";
 
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "700", "800"] });
 
-interface Props {
-  params: {
-    code: string;
-  };
-}
-
-export default async function CountryDetail({ params }: Props) {
+export default async function CountryDetail({
+  params,
+}: {
+  params: { code: string };
+}) {
   try {
     const countries = await getCountries({
       fields: [
