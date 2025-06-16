@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌍 Explorador de países
 
-## Getting Started
+Aplicación web minimalista y moderna para explorar información de países, buscar y filtrar por región, y ver detalles completos de cada país, incluyendo países fronterizos. Realizada como prueba técnica de ingreso a Duppla por Mariana Ruiz Giraldo.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Instalación y ejecución local
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Clona el repositorio:**
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd <NOMBRE_DEL_PROYECTO>
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Ejecuta el proyecto en modo desarrollo:**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+4. **Abre la aplicación en tu navegador:**
+   ```
+   http://localhost:3000
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Decisiones técnicas clave
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js App Router:**  
+  Se utilizó la nueva arquitectura de rutas de Next.js para aprovechar la modularidad y el soporte para layouts y loading states.
 
-## Deploy on Vercel
+- **SSR/SSG:**  
+  - La página principal (listado de países) utiliza **Client Side Rendering (CSR)** para permitir búsqueda y filtrado instantáneo en el navegador, mejorando la experiencia de usuario.
+  - La página de detalle de país utiliza **Server Side Rendering (SSR)** para obtener siempre la información más actualizada y permitir el acceso directo a cualquier país mediante URL.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Tailwind CSS:**  
+  Se eligió Tailwind por su rapidez para prototipar y mantener un diseño consistente y minimalista, además de permitir personalización de la paleta de colores acorde al sistema de diseño de la landing page de Duppla. Se utilizó la fuente Nunito por esta misma razón.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **API type-safe:**  
+  Se emplea la librería `@yusifaliyevpro/countries` para obtener datos de países de forma tipada y segura. Esta librería es un wrapper encima del API proporcionado que permite obtener tipados dinámicos según las peticiones necesarias.
+
+---
+
+## 📝 Notas adicionales
+
+- **Skeleton Loaders:**  
+  Ambas páginas principales cuentan con skeleton loaders personalizados para mejorar la percepción de velocidad mientras se cargan los datos.
+
+- **Paginación:**  
+  El listado de países incluye paginación para mejorar la navegación en grandes volúmenes de datos.
+
+- **Accesibilidad y UX:**  
+  Los campos de búsqueda y filtros son accesibles. 
+
+- **Responsive:**  
+  La aplicación es completamente responsive y se adapta a dispositivos móviles y de escritorio.
+
+- **Colores personalizados:**  
+  La paleta de colores lilas y verdes está definida en el archivo de configuración de Tailwind para mantener coherencia visual con la paleta de colores de Duppla.
+
