@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getCountries } from "@yusifaliyevpro/countries";
 import type { CountryPicker } from "@yusifaliyevpro/countries/types";
 import CountryCard from "@/components/CountryCard";
+import LoadingSkeleton from "@/app/loading";
 
 type CountryFields = [
   "name",
@@ -78,18 +79,7 @@ export default function Home() {
   );
 
   if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {[...Array(8)].map((_, index) => (
-            <div
-              key={index}
-              className="bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse h-80"
-            />
-          ))}
-        </div>
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
   return (
@@ -156,7 +146,6 @@ export default function Home() {
         <button
           onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 rounded-full bg-green-900 text-white font-bold disabled:opacity-50"
         >
           Siguiente
         </button>
